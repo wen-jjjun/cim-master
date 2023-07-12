@@ -29,6 +29,7 @@ import com.farsunset.cim.model.Message;
 import com.farsunset.cim.service.FrontUserService;
 import com.farsunset.cim.service.MessageService;
 import com.farsunset.cim.service.UserService;
+import com.farsunset.cim.util.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -41,6 +42,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @RestController
@@ -87,11 +89,15 @@ public class MessageController {
         message.setExtra(extra);
         message.setId(System.currentTimeMillis());
         UserDTO byId = userService.findById(1L);
-        /*MessageDTO messageDTO = new MessageDTO();
+        MessageDTO messageDTO = new MessageDTO();
         messageDTO.setContent(content);
         messageDTO.setSend_id(1);
         messageDTO.setFor_id(2);
-        messageService.insert(messageDTO);*/
+        messageService.insert(messageDTO);
+
+
+        List<MessageDTO> page = messageService.findPage(1, 2, 1, 10);
+        System.out.println(page);
 
         defaultMessagePusher.push(message);
 

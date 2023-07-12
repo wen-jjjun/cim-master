@@ -4,17 +4,19 @@ import com.farsunset.cim.entity.MessageDTO;
 import com.farsunset.cim.entity.UserDTO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 
 public interface MessageService {
 
 
     /**
-     * 通过id查询
-     *
-     * @param userId
+     * 分页查询消息列表
+     * @param sendId
+     * @param forId
      * @return
      */
-    UserDTO findById(@Param("userId") Long userId);
+    List<MessageDTO> findPage(@Param("sendId") Integer sendId,@Param("forId") Integer forId,@Param("startRow") Integer startRow, @Param("pageSize") Integer pageSize);
 
 
     /**

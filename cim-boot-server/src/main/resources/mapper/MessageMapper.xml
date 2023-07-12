@@ -3,16 +3,17 @@
 <mapper namespace="com.farsunset.cim.dao.MessageMapper">
 
 
-	<!-- 获取 -->
-	<select id="findById" resultType="com.farsunset.cim.entity.MessageDTO">
+	<!-- 获取消息 -->
+	<select id="findBySendIdAndForId" resultType="com.farsunset.cim.entity.MessageDTO">
 		SELECT
-		user_id,
-		user_name,
-		phone
+		content,
+		create_user,
+		create_date
 		FROM
 			zlp_customer_message
 		WHERE
-			user_id = #{userId}
+			send_id = #{send_id}
+			and for_id = #{for_id}
 	</select>
 
 
@@ -36,6 +37,21 @@
 		#{create_date}
 		)
 	</insert>
+
+	<!-- 获取列表 -->
+	<select id="findPage" resultType="com.farsunset.cim.entity.MessageDTO">
+		SELECT
+		content,
+		create_user,
+		create_date
+		FROM
+		zlp_customer_message
+		WHERE 1=1
+		AND send_id = #{sendId}
+		AND for_id = #{forId}
+		ORDER BY create_date DESC
+		LIMIT #{startRow},#{pageSize}
+	</select>
 
 	
 </mapper>
